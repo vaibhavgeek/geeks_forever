@@ -3,7 +3,7 @@ This is DotSlash Hackathon project
 
 
 ## Team Details 
-### Vaibhav Maheshwari - github.com/vaibhavgeek , - linkedin.com/in/vaibhavgeek
+### Vaibhav Maheshwari - http://github.com/vaibhavgeek , - linkedin.com/in/vaibhavgeek
 
-### Abhishek Tiwari - github.com/abhishek981996
+### Abhishek Tiwari - http://github.com/abhishek981996
 
