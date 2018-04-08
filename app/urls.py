@@ -10,6 +10,7 @@ urlpatterns = [
 	url(r'questions/(?P<book_id>\d+)/$',views.questions, name= "questions"),
 	url(r'download/(?P<book_id>\d+)/$' , views.download,name = "download" ),
 	url(r'download/page/(?P<book_id>\d+)/(?P<page_no>\d+)/$' , views.page,name = "page" ),
+	url(r'query/$' ,views.query, name="query")
 	]
 
 if settings.DEBUG:

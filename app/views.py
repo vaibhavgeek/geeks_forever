@@ -15,6 +15,10 @@ from django.core.urlresolvers import reverse
 from app.models import Uploads
 from app.forms import UploadForm
 import PyPDF2
+import requests
+from django.views.decorators.csrf import csrf_exempt
+
+import json
 
 CONNECTION = 'mongodb://abhishek:abhishek@ds239029.mlab.com:39029/intreader'
 client = MongoClient(CONNECTION)
@@ -98,7 +102,11 @@ def page(request,book_id,page_no):
 	pdfWriter = PyPDF2.PdfFileWriter()
 	pdfWriter.addPage(pdf)
 	
+	#rough
 
+
+
+	
 	file_path2 = settings.MEDIA_ROOT +'/'+ "uploads/test.pdf"
 	if os.path.exists(file_path):
 		with open(file_path2, "wb") as outputStream:
@@ -108,3 +116,24 @@ def page(request,book_id,page_no):
 			response['Content-Disposition'] = 'inline; filename=' + uploads.filename
 			v.close()
 			return response
+
+
+@csrf_exempt
+def query(request):
+	request1 = request.body
+	question = json.loads(request1.decode("utf-8"))["question"]
+	print(question)
+	bookid = json.loads(request1.decode("utf-8"))["book_id"]
+	
+	print(bookid)
+
+	url = "http://35.196.112.1/"
+	payload = '{"question":"' + question +'" , "book_id":"' + str(12) + '"}'
+	headers = {
+	'content-type': "application/json",
+	'cache-control': "no-cache",
+	'postman-token': "841456cb-b4ff-95cb-7ad6-dab7956dea76"
+	}
+	response = requests.request("POST", url, data=payload, headers=headers)
+	print(response)
+	return HttpResponse(response)

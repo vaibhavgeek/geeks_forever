@@ -81,7 +81,7 @@ It's just a concept, a fake chat to design a new daily UI for direct messaging.
 Hope you like it :)
 
 -->
-<div id="iframeContainer" style="width: 800px; height: 600px; overflow: auto;">
+<div id="iframeContainer" style="width: 900px; height: 600px; overflow: auto;">
 	<iframe id = "iframe" src="{% url 'download' book_id %}" id="iframe1" scrolling="no"></iframe>
 		</div>
 <div class="chat">
@@ -143,7 +143,7 @@ Hope you like it :)
 			  $('.message-input').val(null);
 			  updateScrollbar();
 			  setTimeout(function() {
-			    fakeMessage();
+			    fakeMessage(msg);
 			  }, 1000 + (Math.random() * 20) * 100);
 			}
 
@@ -159,14 +159,13 @@ Hope you like it :)
 			})
 
 			var Fake = [
-			  'Hi there, I\'m Fabio and you?',
-			  'Nice to meet you',
-			  'How are you?',
-			  ':)'
+			  'Hi there, I\'m Interactive reader Bot !! Ask me any questions based on the pdf'
 			]
-			var page= 1
-
-			function fakeMessage() {
+			var n = 'Hi there, I\'m Interactive reader Bot !! Ask me any questions based on the pdf';
+			var page= 0;
+			$('.message.loading').remove();
+			    		$('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + Fake[0] + '</div>').appendTo($('.mCSB_container')).addClass('new');
+			function fakeMessage(msg) {
 			  if ($('.message-input').val() != '') {
 			    return false;
 			  }
@@ -174,24 +173,69 @@ Hope you like it :)
 			  updateScrollbar();
 
 			  setTimeout(function() {
-			    $('.message.loading').remove();
-			    $('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + Fake[i] + '</div>').appendTo($('.mCSB_container')).addClass('new');
+			  		var settings = {
+					  "async": true,
+					  "crossDomain": true,
+					  "url": "http://127.0.0.1:8000/query/",
+					  "method": "POST",
+					  "headers": {
+					    "content-type": "application/json",
+					    "cache-control": "no-cache",
+					    "postman-token": "edafe4f8-6a25-aec3-ac51-4f30dec4ffad"
+					  },
+					  "processData": false,
+					  "data": "{\"question\": \"" + msg + "\" , \"book_id\":"+ {{book_id}}+" }"
+					}
 
-			    if (i>0) {
-			    	 page = page+1;
-			   console.log(page);
-			   var url = "/download/page/"+{{book_id}}+'/'+page;
-			   console.log(url);
-			    // $("#someFrame").attr("src",url);
-			    var iframe = document.getElementById('iframe');
+					$.ajax(settings).done(function (response) {
+					  console.log(response);
+					  var response = response.replace(/'/g, '"');
+					  obj = JSON.parse(response);
 
-			    iframe.src = url;
-			    iframe.reload();
+						console.log(obj.prediction[1]);
+						n = obj.prediction[1];
+						page_num = obj.page_number;
+					   Fake[0] = obj.prediction[1];
+					   console.log(Fake[0]);
+					   console.log(Fake);
+					    $('.message.loading').remove();
+			    		$('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + Fake[0] + '</div>').appendTo($('.mCSB_container')).addClass('new');
+					   if (i>1) {
+			    	 	page = page_num;
+					   console.log(msg);
+					   var url = "/download/page/"+{{book_id}}+'/'+page;
+					   console.log(url);
+					    // $("#someFrame").attr("src",url);
+					    var iframe = document.getElementById('iframe');
 
-			    };
-			  
-			    
+					    iframe.src = url;	
+					    iframe.reload();
 
+					    };
+
+					});
+			   
+
+			 /* var question = {"question": msg,
+					            "book_id": {{book_id}}
+					};
+			console.log(question);
+
+			$.ajax({
+				url: "{% url 'query' %}",
+				data:question,
+				type:"post",
+				sucess:function(json){
+					console.log("success");
+					console.log(json);
+				}});*/
+
+			
+
+				
+			   
+
+			
 				
 			 //    var xcoord = 200;
 			 //    var ycoord = 100;
