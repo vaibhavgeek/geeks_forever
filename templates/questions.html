@@ -14,6 +14,21 @@
 </head>
 
 <body>
+
+	{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
 	<!-- <div class="menu">
             <div class="back">
             	<a href='{% url "reader"%}'>
@@ -66,10 +81,12 @@ It's just a concept, a fake chat to design a new daily UI for direct messaging.
 Hope you like it :)
 
 -->
-
+<div id="iframeContainer" style="width: 800px; height: 600px; overflow: auto;">
+	<iframe id = "iframe" src="{% url 'download' book_id %}" id="iframe1" scrolling="no"></iframe>
+		</div>
 <div class="chat">
   <div class="chat-title">
-    <h1>Fabio Ottaviani</h1>
+    <h1>Interactive Reader ChatBot</h1>
     <h2>Supah</h2>
     <figure class="avatar">
       <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>
@@ -145,19 +162,9 @@ Hope you like it :)
 			  'Hi there, I\'m Fabio and you?',
 			  'Nice to meet you',
 			  'How are you?',
-			  'Not too bad, thanks',
-			  'What do you do?',
-			  'That\'s awesome',
-			  'Codepen is a nice place to stay',
-			  'I think you\'re a nice person',
-			  'Why do you think that?',
-			  'Can you explain?',
-			  'Anyway I\'ve gotta go now',
-			  'It was a pleasure chat with you',
-			  'Time to make a new codepen',
-			  'Bye',
 			  ':)'
 			]
+			var page= 1
 
 			function fakeMessage() {
 			  if ($('.message-input').val() != '') {
@@ -169,12 +176,37 @@ Hope you like it :)
 			  setTimeout(function() {
 			    $('.message.loading').remove();
 			    $('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + Fake[i] + '</div>').appendTo($('.mCSB_container')).addClass('new');
+
+			    if (i>0) {
+			    	 page = page+1;
+			   console.log(page);
+			   var url = "/download/page/"+{{book_id}}+'/'+page;
+			   console.log(url);
+			    // $("#someFrame").attr("src",url);
+			    var iframe = document.getElementById('iframe');
+
+			    iframe.src = url;
+			    iframe.reload();
+
+			    };
+			  
+			    
+
+				
+			 //    var xcoord = 200;
+			 //    var ycoord = 100;
+			 //    var myIframe = document.getElementById('iframe');
+				// myIframe.onload = function () {
+				//     myIframe.contentWindow.scrollTo(xcoord,ycoord);
+				// }
 			    setDate();
 			    updateScrollbar();
 			    i++;
+			    // xcoord = xcoord + 20;
+			    // ycoord = ycoord + 30;
 			  }, 1000 + (Math.random() * 20) * 100);
-
 			}
+
  	</script>
 
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>    
