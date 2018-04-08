@@ -93,7 +93,8 @@ iframe {
 }
 .chat-title h2 {
   color: rgba(255, 255, 255, .5);
-  font-size: 8px;
+  font-size: 10px;
+  font-weight: bold;
   letter-spacing: 1px;
 }
 .chat-title .avatar {
@@ -137,7 +138,7 @@ iframe {
   border-radius: 10px 10px 10px 0;
   background: rgba(0, 0, 0, .3);
   margin: 8px 0;
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.4;
   margin-left: 35px;
   position: relative;

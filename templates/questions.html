@@ -92,7 +92,10 @@ Hope you like it :)
       <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>
   </div>
   <div class="messages">
-    <div class="messages-content"></div>
+    <div class="messages-content">
+    	<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure> Hey! there, I am an Interactive reader Bot!! Ask me any questions based on the PDF! :-) 
+</div>
+    </div>
   </div>
   <div class="message-box">
     <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
@@ -200,6 +203,7 @@ Hope you like it :)
 					   console.log(Fake);
 					    $('.message.loading').remove();
 			    		$('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + Fake[0] + '</div>').appendTo($('.mCSB_container')).addClass('new');
+			    		$('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + "Found on page number &nbsp;" + page_num.toString() + '</div>').appendTo($('.mCSB_container')).addClass('new');
 					   if (i>1) {
 			    	 	page = page_num;
 					   console.log(msg);

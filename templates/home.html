@@ -8,25 +8,30 @@
 </head>
 <body>
 
-<div class = "container"> 
-  <div class="col s12 m6 offset-m3">
-      <div class="card z-depth-4">
+<div class = "container" style="margin-top: 10%"> 
+  <div class="col s12 m6 offset-m3 ">
+      <div class="card z-depth-4  center-align">
       <form method="post" enctype="multipart/form-data">
            {% csrf_token %}
           <div class="card  black-text text-darken-2 z-depth-2 hoverable middle">
                       <div class="card-content  teal lighten-1 white-text ">
-                          <span class="card-title center bold"> Upload your file </span>
+                          <span class="card-title center bold"> Upload your pdf file  to process the bot</span>
                       </div>
 
                       <div class="section"> </div>
 
-                      <div class="file-field input-field">
+                      <div class="file-field input-field center-align" style="position: absolute; margin-left:47%; ">
 					      <div class="btn">
-					        <span class="col l6 offset-l4">File</span>	
+                  <center>
+					        <span class="">File</span>	
 					        {{form.file}}
+
+                  </center>
 					      </div>
 					    </div>
-
+              <br/><br/>
+              <div class="section">               
+              </div>
               <div class="section">               
               </div>
                     <div class="center">

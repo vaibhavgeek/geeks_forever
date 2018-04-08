@@ -1,0 +1,12 @@
+certifi==2018.1.18
+chardet==3.0.4
+Django==1.11.12
+django-cors-headers==2.2.0
+idna==2.6
+pdftotext==2.0.2
+pymango==0.1.1
+pymongo==3.6.1
+PyPDF2==1.26.0
+pytz==2018.3
+requests==2.18.4
+urllib3==1.22
